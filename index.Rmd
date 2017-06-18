@@ -1,0 +1,35 @@
+---
+title: "Plotly in a presentation"
+date: "18 June, 2017"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Plotly graph
+
+```{r echo=FALSE}
+suppressPackageStartupMessages(library(plotly))
+suppressPackageStartupMessages(library(tidyr))
+suppressPackageStartupMessages(library(plyr))
+
+data <- spread(Orange, Tree, circumference)
+data <- rename(data, c("1" = "Tree1", "2" = "Tree2", "3" = "Tree3", "4" = "Tree4", "5" = "Tree5"))
+
+xlab <- list(title = "Age (days ince 1968/12/31)")
+ylab <- list(title = "Circumference (mm)")
+
+
+plot_ly(data, x = ~age, y = ~Tree1, type = 'scatter', mode = 'lines+markers', name = 'Tree 1') %>%
+  add_trace(y = ~Tree2, name = 'Tree 2') %>%
+  add_trace(y = ~Tree3, name = 'Tree 3') %>%
+  add_trace(y = ~Tree4, name = 'Tree 4') %>%
+  add_trace(y = ~Tree5, name = 'Tree 5') %>%
+    layout(xaxis = xlab, yaxis = ylab)
+
+```
+
+## Thanks!
+
